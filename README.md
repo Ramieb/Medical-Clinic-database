@@ -3,11 +3,30 @@ DB: MySQL
 Languages: JavaScript, CSS, HTML, C# (we might have to use)
 
 Roles examples: Patients, doctors, receptionist, admins, specialist, nurse.
-Patient: Appointment info, their doctor, personal (medical) information, prescription.
-Receptionist: Personal info (name, id, sex), appointment info (e.g. medical department, reason for clinic visit, patient personal info).
-Nurse: Personal info (name, id, sex), medical records.
-Doctor: Personal info (name, id, sex), medical records. 
-Specialist: Personal info (name, id, sex), medical records.
-Admin: Personal info (name, id, sex), everything everyone has access to plus: staff vacations, staff working hours, staff dependents, clinic departments info, any other companies/businesses/clinics/law firms they are in contact with.
+	All users below: 
+		Personal info.
+			Personal info: age(DOB), gender, race, home address, emergency contact, insurance.
+
+	Patient:
+		Appointment info, their doctor, medical information, bills/payments, health risks/status.
+			Health risks/status: info about behavior and lifestyles (e.g. tobacco use), family history, genetic factors.
+			Medical info: prescriptions, medical history (e.g. previous hospital admissions, surgeries, past medical problems), current health problems/diagnoses, allergies, lab tests/blood work
+			
+	Receptionist: 
+		Appointment info (e.g. medical department, reason for clinic visit, patient personal info), oustanding bills.
+
+	All users below:
+		 Medical records.
+			Personal info for employees: immediate family, marital status, education, employment info (e.g. hire date, department, specialty).
+
+	Nurse:
+		
+	Doctor: 
+ 
+	Specialist: 
+		
+	Admin: 
+		Access to everything, staff schedule, staff/patient demographics, clinic departments info, health insurance info, outcome data.
+			Outcome data: info about aftermath of various health problems/surgeries/medicine/complications, satisfaction surveys
 
 Use clear words when committing to help the team or anyone else understand what we did.
