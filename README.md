@@ -6,7 +6,7 @@ Patients:
 	Personal info: FirstName, LastName, DOB, Gender, Race, Contact Information, Address, Emergency Contact, Height, Weight
 	PatientID
  	InsuranceInfo
-  	MedicalHistory: Previous diagnoses, surgeries, medication, allergies
+  	MedicalHistory: PreviousDiagnoses, Surgeries, Medication, Allergies
    	HIPAAConsentStatus
     	HIPAAConsentDate
 
