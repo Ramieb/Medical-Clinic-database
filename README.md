@@ -3,29 +3,29 @@ DB: MySQL
 Languages: JavaScript, CSS, HTML, C# (we might have to use)
 	
 Patients:
- 	Personal info: FirstName, LastName, DOB, Gender, Race, Contact Information, Address, Emergency Contact, Height, Weight
+	Personal info: FirstName, LastName, DOB, Gender, Race, Contact Information, Address, Emergency Contact, Height, Weight
 	PatientID
  	InsuranceInfo
   	MedicalHistory: Previous diagnoses, surgeries, medication, allergies
    	HIPAAConsentStatus
-    HIPAAConsentDate
+    	HIPAAConsentDate
 
 Appointments:
 	AppointmentID
  	Date/Time
   	Doctor
    	ReasonForVisit
-    AppointmentStatus
-    FollowUp 
+    	AppointmentStatus
+    	FollowUp 
 
 Employees:
 	Personal info: FirstName, LastName, DOB, Gender, Race, Contact Information, Address, Emergency Contact, Marital Status, Dependents
-    EmployeeID
-    Position(Receptionist, Nurse, Doctor, Specialist, Janitor)
-    HireDate
-    Salary
-    Schedule
-    CertificationsTrainings
+    	EmployeeID
+    	Position(Receptionist, Nurse, Doctor, Specialist, Janitor)
+    	HireDate
+    	Salary
+    	Schedule
+    	CertificationsTrainings
 
 Billing:
 	Invoices
