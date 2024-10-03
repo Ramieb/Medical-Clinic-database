@@ -1,64 +1,128 @@
 -- create database clinicdb
-
-CREATE TABLE Admin (
-    admin_id INT PRIMARY KEY,
-    admin_ssn VARCHAR(11) UNIQUE,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    employee_info JSON,
-    clinic_operations JSON,
-    insurance_info JSON,
-    outcome_data JSON
-);
-
 CREATE TABLE Office (
     office_id INT PRIMARY KEY,
-    location VARCHAR(255),
-    staff JSON,
-    manager_id INT,
+    location VARCHAR(128),
+    admin_id INT,
     admin_start_date DATE,
-    FOREIGN KEY (manager_id) REFERENCES Admin(admin_id)
+    FOREIGN KEY (admin_id) REFERENCES Admin(employee_ssn)
+);
+CREATE TABLE Appointment(
+	app_date DATETIME PRIMARY KEY,
+    P_ID INT PRIMARY KEY,
+    D_ID INT,
+    FOREIGN KEY (D_ID) REFERENCES Employee(employee_ssn),
+    FOREIGN KEY (P_ID) REFERENCES Patient(patient_id)
+);
+CREATE TABLE Medication (
+    medicine VARCHAR(50) PRIMARY KEY,
+    start_date DATE,
+    end_date DATE,
+    number_to_take SMALLINT,
+    time_of_day VARCHAR(20),
+    prescribed_by INT,
+    prescribed_to INT,
+    FOREIGN KEY (prescribed_by) REFERENCES Doctor(employee_ssn),
+    FOREIGN KEY (prescribed_to) REFERENCES Patient(patient_id)
 );
 
-CREATE TABLE Employee (
-    employee_id INT PRIMARY KEY,
-    employee_ssn VARCHAR(11) UNIQUE,
+CREATE TABLE Allergies(
+	allergy VARCHAR(20) PRIMARY KEY,
+    P_ID INT,
+    FOREIGN KEY (P_ID) REFERENCES Patient(patient_id)
+);
+CREATE TABLE Illness(
+	ailment VARCHAR(50) PRIMARY KEY,
+    start_date DATE,
+    end_date DATE,
+    P_ID INT,
+    FOREIGN KEY (P_ID) REFERENCES Patient(patient_id)
+);
+CREATE TABLE Surgery(
+	procedure_done VARCHAR(50) PRIMARY KEY,
+    body_part VARCHAR(25),
+    surgery_date DATE,
+    P_ID INT,
+    FOREIGN KEY (P_ID) REFERENCES Patient(patient_id)
+);
+CREATE TABLE Immunization(
+	vaccine VARCHAR(50) PRIMARY KEY,
+    vax_date DATE,
+    P_ID INT,
+    FOREIGN KEY (P_ID) REFERENCES Patient(patient_id)
+);
+CREATE TABLE Med_History(
+	P_ID int PRIMARY KEY,
+    last_visit DATETIME PRIMARY KEY,
+    height SMALLINT,
+    weight SMALLINT,
+    allergy VARCHAR(20),
+    blood_pressure VARCHAR(10),
+    prev_prescription VARCHAR(50),
+    prev_sickness VARCHAR(50),
+    prev_surgeries VARCHAR(50),
+    FOREIGN KEY(P_ID) REFERENCES patient(patient_id),
+    FOREIGN KEY(prev_prescription) REFERENCES Medication(medicine),
+    FOREIGN KEY(allergy) REFERENCES Allergies(allegy),
+    FOREIGN KEY(prev_sickness) REFERENCES Illness(ailment),
+	FOREIGN KEY(prev_surgeries) REFERENCES Surgery(procedure_done)
+);
+CREATE TABLE Doctor (
+    employee_ssn VARCHAR(9) PRIMARY KEY,
+    Admin_ssn VARCHAR(11),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
-    role ENUM('Receptionist', 'Nurse', 'Doctor', 'Specialist'),
+    hire_date VARCHAR(10),
+    salary INT,
     office_id INT,
-    receptionist_info JSON, -- Only used if role is 'Receptionist'
-    nurse_info JSON, -- Only used if role is 'Nurse'
-    doctor_info JSON, -- Only used if role is 'Doctor'
-    specialist_info JSON, -- Only used if role is 'Specialist'
-    FOREIGN KEY (office_id) REFERENCES Office(office_id)
+    specialty VARCHAR(25),
+    FOREIGN KEY (office_id) REFERENCES Office(office_id),
+    FOREIGN KEY (Admin_ssn) REFERENCES Admin(employee_ssn)
 );
 
+CREATE TABLE Nurse (
+    employee_ssn VARCHAR(9) PRIMARY KEY,
+    Admin_ssn VARCHAR(11),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    hire_date VARCHAR(10),
+    salary INT,
+    office_id INT,
+    FOREIGN KEY (office_id) REFERENCES Office(office_id),
+    FOREIGN KEY (Admin_ssn) REFERENCES Admin(employee_ssn)
+);
+CREATE TABLE Receptionist (
+	employee_ssn VARCHAR(9) PRIMARY KEY,
+    Admin_ssn VARCHAR(11),
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    hire_date VARCHAR(10),
+    salary INT,
+    office_id INT,
+    FOREIGN KEY (office_id) REFERENCES Office(office_id),
+    FOREIGN KEY (Admin_ssn) REFERENCES Admin(employee_ssn)
+);
 CREATE TABLE Patient (
     patient_id INT PRIMARY KEY,
-    patient_ssn VARCHAR(11) UNIQUE,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     date_of_birth DATE,
-    address VARCHAR(255),
-    phone_number VARCHAR(15),
-    doctor_id INT,
-    appointment_info JSON,
-    medical_information JSON,
-    health_risks_status JSON,
-    bills_payments JSON,
-    FOREIGN KEY (doctor_id) REFERENCES Employee(employee_id)
+    address VARCHAR(128),
+    phone_number VARCHAR(10),
+    primary_id INT,
+    FOREIGN KEY (primary_id) REFERENCES Doctor(employee_ssn)
 );
 
-CREATE TABLE Treatment (
-    treatment_id INT PRIMARY KEY,
-    prescription JSON,
-    period DATE,
-    prescribed_by INT,
-    prescribed_to INT,
-    FOREIGN KEY (prescribed_by) REFERENCES Employee(employee_id),
-    FOREIGN KEY (prescribed_to) REFERENCES Patient(patient_id)
+
+
+
+
+
+CREATE TABLE Admin (
+    employee_ssn VARCHAR(9) PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
 );
+
 
 INSERT INTO Patient (patient_id, patient_ssn, first_name, last_name, date_of_birth, address, phone_number, doctor_id, appointment_info, medical_information, health_risks_status, bills_payments)
 VALUES 
